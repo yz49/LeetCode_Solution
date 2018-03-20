@@ -49,3 +49,50 @@ for i in range(len(s)):
 res = s[RL.index(max(RL)) - max(RL):RL.index(max(RL)) +
         max(RL) + 1].replace('#', '')
 print(res)
+
+##############################################################
+# 2018-3-20
+# 17.Letter Combinations of a Phone Number
+
+digits = '23'
+
+mapdict = {'2': 'abc',
+           '3': 'def',
+           '4': 'ghi',
+           '5': 'jkl',
+           '6': 'mno',
+           '7': 'pqrs',
+           '8': 'tuv',
+           '9': 'wxyz'}
+
+def letterCombinations(digits):
+    if len(digits) == 0:
+        return []
+    if len(digits) == 1:
+        return [c for c in mapdict[digits]]
+    return [x + y for x in mapdict[digits[0]] for y in letterCombinations(digits[1:])]
+
+print(letterCombinations(digits))
+
+##############################################################
+# 2018-3-20
+# 22. Generate Parentheses
+
+n = 3
+
+def generateParenthesis(n):
+    res = []
+    generateParenthesisRec(n, n, '', res)
+    return res
+
+def generateParenthesisRec(left, right, current, res):
+    if right == 0:
+        res.append(current)
+    else:
+        if left > 0:
+            generateParenthesisRec(left - 1, right, current + '(', res)
+        if right > left:
+            generateParenthesisRec(left, right - 1, current + ')', res)
+
+print(generateParenthesis(n))
+
