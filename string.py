@@ -96,3 +96,45 @@ def generateParenthesisRec(left, right, current, res):
 
 print(generateParenthesis(n))
 
+##############################################################
+# 2018-3-21
+# 49. Group Anagrams
+
+strs = ["eat", "tea", "tan", "ate", "nat", "bat"]
+
+sdict = dict()
+for str in sorted(strs):
+    if sdict.__contains__(tuple(sorted(str))):
+        sdict[tuple(sorted(str))].append(str)
+    else:
+        sdict[tuple(sorted(str))] = [str]
+res = []
+for key, value in sdict.items():
+    res.append(value)
+
+print(res)
+
+
+##############################################################
+# 2018-3-21
+# 647. Palindromic Substrings
+# Manacher’s Algorithm
+
+s = 'abc'
+
+s = '#' + "#".join(list(s)) + '#'
+pos, maxRight, RL = 0, 0, []
+
+for i in range(len(s)):
+    RL.append(0)
+    if i < maxRight:
+        RL[i] = min(RL[2 * pos - i], maxRight - i)
+    while (i - RL[i] - 1 >= 0) and (i + RL[i] + 1 < len(s)) and (s[i - RL[i] - 1] == s[i + RL[i] + 1]):
+        RL[i] += 1
+    newRight = i + RL[i]
+    if newRight > maxRight:
+        maxRight = newRight
+        pos = i
+res = sum((rl + 1) // 2 for rl in RL)
+
+print(res)
