@@ -138,3 +138,84 @@ for i in range(len(s)):
 res = sum((rl + 1) // 2 for rl in RL)
 
 print(res)
+
+##############################################################
+# 2018-3-22
+# 91. Decode Ways
+
+s = '122909'
+
+
+def numDecodings(s):
+    if s == '' or s[0] == '0':
+        return 0
+    if len(s) == 1:
+        return 1
+    pre, cur = 1, 1
+    for i in range(1, len(s)):
+        tmp = cur
+        if s[i] == '0':
+            if s[i - 1] < '3' and s[i - 1] > '0':
+                cur = pre
+                pre = 0
+            else:
+                pre, cur = 0, 0
+        else:
+            if(s[i - 1] == '0'):
+                cur = cur
+                pre = tmp
+            elif int(s[i - 1:i + 1]) < 27:
+                cur += pre
+                pre = tmp
+            else:
+                cur = cur
+                pre = tmp
+
+    return cur
+
+
+print(numDecodings(s))
+
+##############################################################
+# 2018-3-22
+# 227. Basic Calculator II
+# stack
+
+s = "14-3/2"
+
+s = ''.join(s.split())
+ss = s.replace('+', ' ').replace('-', ' ').replace('*',
+                                                   ' ').replace('/', ' ').split()
+print(ss)
+numStack = list()
+# opStack = list()
+
+i = 0
+j = 0
+while i < len(s):
+    if s[i] <= '9' and s[i] >= '0':
+        numStack.append(int(ss[j]))
+        i += len(ss[j])
+        j += 1
+    elif s[i] == '*':
+        numStack[-1] = numStack[-1] * int(ss[j])
+        i = i + 1 + len(ss[j])
+        j += 1
+    elif s[i] == '/':
+        numStack[-1] = numStack[-1] // int(
+            ss[j]) if numStack[-1] >= 0 else -((-numStack[-1]) // int(ss[j]))
+        i = i + 1 + len(ss[j])
+        j += 1
+    elif s[i] == '+':
+        tmp = int(ss[j])
+        numStack.append(tmp)
+        i = i + 1 + len(ss[j])
+        j += 1
+    else:
+        tmp = -int(ss[j])
+        numStack.append(tmp)
+        i = i + 1 + len(ss[j])
+        j += 1
+res = sum(numStack)
+
+print(res)
