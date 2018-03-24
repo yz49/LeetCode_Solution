@@ -1,37 +1,37 @@
-# ####################################
-# # 238. Product of Array Except Self
-# # left to me, right to me
+####################################
+# 238. Product of Array Except Self
+# left to me, right to me
 
-# nums = [1, 2, 3, 4]
+nums = [1, 2, 3, 4]
 
-# res = []
-# tmp = 1
-# for i in range(len(nums)):
-#     res.append(tmp)
-#     tmp *= nums[i]
-# tmp = 1
-# for i in range(len(nums) - 1, -1, -1):
-#     res[i] *= tmp
-#     tmp *= nums[i]
+res = []
+tmp = 1
+for i in range(len(nums)):
+    res.append(tmp)
+    tmp *= nums[i]
+tmp = 1
+for i in range(len(nums) - 1, -1, -1):
+    res[i] *= tmp
+    tmp *= nums[i]
 
-# print(res)
+print(res)
 
-# ####################################
-# # 78. Subsets
+####################################
+# 78. Subsets
 
-# nums = [1, 2, 3]
-
-
-# def subset(nums, cur, res):
-#     res.append(cur)
-#     for i in range(len(nums)):
-#         subset(nums[i + 1:], cur + [nums[i]], res)
+nums = [1, 2, 3]
 
 
-# cur, res = [], []
-# subset(nums, cur, res)
+def subset(nums, cur, res):
+    res.append(cur)
+    for i in range(len(nums)):
+        subset(nums[i + 1:], cur + [nums[i]], res)
 
-# print(res)
+
+cur, res = [], []
+subset(nums, cur, res)
+
+print(res)
 
 ####################################
 # 287. Find the Duplicate Number
