@@ -120,3 +120,54 @@ for i in range(1, m):
         numpath[i][j] = numpath[i][j - 1] + numpath[i - 1][j]
 
 print(numpath[-1][-1])
+
+####################################
+# 48. Rotate Image
+
+matrix = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]]
+print(matrix)
+
+'''
+result =
+[
+  [7,4,1],
+  [8,5,2],
+  [9,6,3]
+]
+'''
+for i in range(len(matrix)):
+    for j in range(len(matrix) - i):
+        tmp = matrix[i][j]
+        matrix[i][j] = matrix[len(matrix) - 1 - j][len(matrix) - 1 - i]
+        matrix[len(matrix) - 1 - j][len(matrix) - 1 - i] = tmp
+
+matrix.reverse()
+print(matrix)
+
+####################################
+# 75. Sort Colors
+
+nums = [0, 2, 2, 1, 1, 1, 0, 2, 1, 0, 1, 1, 0]
+
+pre = 0
+last = len(nums) - 1
+i = 0
+while pre != last and i <= last and i >= pre:
+    if nums[i] == 0:
+        tmp = nums[pre]
+        nums[pre] = nums[i]
+        nums[i] = tmp
+        pre += 1
+        i += 1
+    elif nums[i] == 2:
+        tmp = nums[last]
+        nums[last] = nums[i]
+        nums[i] = tmp
+        last -= 1
+    else:
+        i += 1
+
+print(nums)
